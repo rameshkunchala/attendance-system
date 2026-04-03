@@ -107,16 +107,18 @@
     <h3>Quick Actions</h3>
 
     <div class="actions">
-        <%
-            if ("admin".equals(role)) {
-        %>
-            <a href="attendance.jsp" class="btn primary">📝 Mark Attendance</a>
-        <%
-            }
-        %>
+    <%
+        Object roleObj = session.getAttribute("role");
 
-        <a href="report.jsp" class="btn success">📊 View Reports</a>
-    </div>
+        if (roleObj != null && "admin".equals(roleObj.toString())) {
+    %>
+        <a href="attendance.jsp" class="btn primary">📝 Mark Attendance</a>
+    <%
+        }
+    %>
+
+    <a href="report.jsp" class="btn success">📊 View Reports</a>
+</div>
 </div>
 </body>
 </html>

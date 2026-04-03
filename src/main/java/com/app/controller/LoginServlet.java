@@ -8,19 +8,21 @@ import javax.servlet.http.*;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
         if ("admin".equals(username) && "admin123".equals(password)) {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", username);
-            resp.sendRedirect(req.getContextPath() + "/dashboard.jsp");
+
+            HttpSession session = request.getSession(true);
+            session.setAttribute("role", "admin");
+
+            response.sendRedirect("dashboard.jsp");
+
         } else {
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 }
