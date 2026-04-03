@@ -1,37 +1,40 @@
-<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Attendance Report</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+            padding: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
 <body>
-<h2>Attendance Report</h2>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Status</th>
-    </tr>
-<%
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/attendance_db",
-        "root",
-        "Root@12345"
-    );
-
-    Statement st = con.createStatement();
-    ResultSet rs = st.executeQuery("SELECT * FROM attendance");
-
-    while (rs.next()) {
-%>
-    <tr>
-        <td><%= rs.getInt("student_id") %></td>
-        <td><%= rs.getString("student_name") %></td>
-        <td><%= rs.getDate("attendance_date") %></td>
-        <td><%= rs.getString("status") %></td>
-    </tr>
-<%
-    }
-    con.close();
-%>
-</table>
+    <h2>Attendance Report</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        <!-- Dynamically loop DB data here -->
+    </table>
 </body>
 </html>
