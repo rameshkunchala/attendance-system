@@ -15,31 +15,42 @@ public class AttendanceDAO {
         try {
             Properties props = new Properties();
             InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties");
+
+            if (input == null) {
+                throw new RuntimeException("db.properties file not found");
+            }
+
             props.load(input);
 
             jdbcURL = props.getProperty("db.url");
             jdbcUser = props.getProperty("db.username");
             jdbcPass = props.getProperty("db.password");
+
+            System.out.println("Loaded DB URL: " + jdbcURL);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void saveAttendance(Attendance attendance) {
+        String sql = "INSERT INTO attendance(student_id, student_name, attendance_date, status) VALUES (?, ?, ?, ?)";
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPass);
 
-            String sql = "INSERT INTO attendance(student_id, student_name, attendance_date, status) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            try (Connection con = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPass);
+                 PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, attendance.getStudentId());
-            ps.setString(2, attendance.getStudentName());
-            ps.setDate(3, attendance.getAttendanceDate());
-            ps.setString(4, attendance.getStatus());
+                ps.setInt(1, attendance.getStudentId());
+                ps.setString(2, attendance.getStudentName());
+                ps.setDate(3, attendance.getAttendanceDate());
+                ps.setString(4, attendance.getStatus());
 
-            ps.executeUpdate();
-            con.close();
+                int rows = ps.executeUpdate();
+                System.out.println("Inserted rows: " + rows);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
