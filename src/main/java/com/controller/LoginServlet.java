@@ -1,12 +1,14 @@
-package com.app.servlet;
+package com.app.controller;
 
 import java.io.IOException;
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -16,9 +18,9 @@ public class LoginServlet extends HttpServlet {
         if ("admin".equals(username) && "admin123".equals(password)) {
             HttpSession session = req.getSession();
             session.setAttribute("user", username);
-            resp.sendRedirect("dashboard.jsp");
+            resp.sendRedirect(req.getContextPath() + "/dashboard.jsp");
         } else {
-            resp.sendRedirect("login.jsp?error=1");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
         }
     }
 }

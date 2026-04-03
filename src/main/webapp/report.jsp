@@ -1,16 +1,14 @@
-    <%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*" %>
 <html>
 <body>
 <h2>Attendance Report</h2>
-
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Student ID</th>
-        <th>Status</th>
+        <th>Name</th>
         <th>Date</th>
+        <th>Status</th>
     </tr>
-
 <%
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection con = DriverManager.getConnection(
@@ -25,16 +23,15 @@
     while (rs.next()) {
 %>
     <tr>
-        <td><%= rs.getInt("id") %></td>
         <td><%= rs.getInt("student_id") %></td>
+        <td><%= rs.getString("student_name") %></td>
+        <td><%= rs.getDate("attendance_date") %></td>
         <td><%= rs.getString("status") %></td>
-        <td><%= rs.getTimestamp("created_at") %></td>
     </tr>
 <%
     }
     con.close();
 %>
-
 </table>
 </body>
 </html>

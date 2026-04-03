@@ -1,14 +1,18 @@
 <html>
 <body>
-<h2>Mark Student Attendance</h2>
+<h2>Mark Attendance</h2>
 <form action="markAttendance" method="post">
-    Student ID: <input type="number" name="studentId"><br>
+    Student ID: <input type="number" name="studentId"><br><br>
+    Student Name: <input type="text" name="studentName"><br><br>
+    Date: <input type="date" name="attendanceDate"><br><br>
+
     Status:
     <select name="status">
         <option value="Present">Present</option>
         <option value="Absent">Absent</option>
-    </select><br>
-    <input type="submit" value="Submit">
+    </select><br><br>
+
+    <input type="submit" value="Submit Attendance">
 </form>
 </body>
 </html>
