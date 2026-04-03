@@ -1,10 +1,6 @@
 <html>
 <body>
-<h2>Teacher Login</h2>
-<form action="login" method="post">
-    Username: <input type="text" name="username"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="Login">
-</form>
+    <h2>Welcome to Teacher Dashboard</h2>
+    <a href="attendance.jsp">Mark Attendance</a>
 </body>
 </html>
