@@ -14,15 +14,22 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        HttpSession session = request.getSession();
+
+        // Admin login
         if ("admin".equals(username) && "admin123".equals(password)) {
-
-            HttpSession session = request.getSession(true);
+            session.setAttribute("username", username);
             session.setAttribute("role", "admin");
-
             response.sendRedirect("dashboard.jsp");
-
-        } else {
-            response.sendRedirect("login.jsp");
+        }
+        // User login
+        else if ("user".equals(username) && "user123".equals(password)) {
+            session.setAttribute("username", username);
+            session.setAttribute("role", "user");
+            response.sendRedirect("dashboard.jsp");
+        }
+        else {
+            response.sendRedirect("login.jsp?error=Invalid credentials");
         }
     }
 }
