@@ -14,10 +14,12 @@ public class AttendanceDAO {
     public AttendanceDAO() {
         try {
             Properties props = new Properties();
-            InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties");
+
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream input = classLoader.getResourceAsStream("db.properties");
 
             if (input == null) {
-                throw new RuntimeException("db.properties file not found");
+                throw new RuntimeException("db.properties file not found in classpath");
             }
 
             props.load(input);
@@ -26,7 +28,7 @@ public class AttendanceDAO {
             jdbcUser = props.getProperty("db.username");
             jdbcPass = props.getProperty("db.password");
 
-            System.out.println("Loaded DB URL: " + jdbcURL);
+            System.out.println("DB URL Loaded = " + jdbcURL);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +50,7 @@ public class AttendanceDAO {
                 ps.setString(4, attendance.getStatus());
 
                 int rows = ps.executeUpdate();
-                System.out.println("Inserted rows: " + rows);
+                System.out.println("Inserted rows = " + rows);
             }
 
         } catch (Exception e) {
