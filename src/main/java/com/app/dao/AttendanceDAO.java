@@ -32,3 +32,28 @@ public class AttendanceDAO {
         }
     }
 }
+
+public int getTotalStudents() {
+    int count = 0;
+    try (Connection con = DBUtil.getConnection();
+         PreparedStatement ps = con.prepareStatement("SELECT COUNT(DISTINCT student_id) FROM attendance");
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) count = rs.getInt(1);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+public int getPresentTodayCount() {
+    int count = 0;
+    try (Connection con = DBUtil.getConnection();
+         PreparedStatement ps = con.prepareStatement(
+             "SELECT COUNT(*) FROM attendance WHERE attendance_date = CURDATE() AND status='Present'");
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) count = rs.getInt(1);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return count;
+}
