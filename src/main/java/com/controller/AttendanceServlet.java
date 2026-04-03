@@ -1,30 +1,20 @@
-package com.app.controller;
+@Override
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-import com.app.model.Attendance;
-import com.app.service.AttendanceService;
+    int studentId = Integer.parseInt(req.getParameter("studentId"));
+    String studentName = req.getParameter("studentName");
+    java.sql.Date attendanceDate =
+            java.sql.Date.valueOf(req.getParameter("attendanceDate"));
+    String status = req.getParameter("status");
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
+    Attendance attendance = new Attendance(
+            studentId,
+            studentName,
+            attendanceDate,
+            status
+    );
 
-@WebServlet("/markAttendance")
-public class AttendanceServlet extends HttpServlet {
+    service.markAttendance(attendance);
 
-    private AttendanceService service = new AttendanceService();
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("=== AttendanceServlet HIT ===");
-
-        Attendance attendance = new Attendance(
-                101,
-                "Ramesh",
-                java.sql.Date.valueOf("2026-04-03"),
-                "Present"
-        );
-
-        service.markAttendance(attendance);
-
-        resp.sendRedirect(req.getContextPath() + "/report.jsp");
-    }
+    resp.sendRedirect(req.getContextPath() + "/report.jsp");
 }

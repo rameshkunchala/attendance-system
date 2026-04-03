@@ -3,11 +3,12 @@
 <h2>Mark Attendance</h2>
 
 <form action="${pageContext.request.contextPath}/markAttendance" method="post">
-    Student ID: <input type="number" name="studentId"><br><br>
-    Student Name: <input type="text" name="studentName"><br><br>
-    Date: <input type="date" name="attendanceDate"><br><br>
+    Student ID: <input type="number" name="studentId" required><br><br>
 
-    Status:
+    Student Name: <input type="text" name="studentName" required><br><br>
+
+    Date: <input type="date" name="attendanceDate" required><br><br>
+
     <select name="status">
         <option value="Present">Present</option>
         <option value="Absent">Absent</option>
