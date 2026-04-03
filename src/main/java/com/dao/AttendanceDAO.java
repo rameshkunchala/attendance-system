@@ -1,39 +1,13 @@
 package com.app.dao;
 
 import com.app.model.Attendance;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
 
 public class AttendanceDAO {
 
-    private String jdbcURL;
-    private String jdbcUser;
-    private String jdbcPass;
-
-    public AttendanceDAO() {
-        try {
-            Properties props = new Properties();
-
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream input = classLoader.getResourceAsStream("db.properties");
-
-            if (input == null) {
-                throw new RuntimeException("db.properties file not found in classpath");
-            }
-
-            props.load(input);
-
-            jdbcURL = props.getProperty("db.url");
-            jdbcUser = props.getProperty("db.username");
-            jdbcPass = props.getProperty("db.password");
-
-            System.out.println("DB URL Loaded = " + jdbcURL);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/attendance_db";
+    private final String jdbcUser = "root";
+    private final String jdbcPass = "Root@12345";
 
     public void saveAttendance(Attendance attendance) {
         String sql = "INSERT INTO attendance(student_id, student_name, attendance_date, status) VALUES (?, ?, ?, ?)";
@@ -43,6 +17,8 @@ public class AttendanceDAO {
 
             try (Connection con = DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPass);
                  PreparedStatement ps = con.prepareStatement(sql)) {
+
+                System.out.println("=== DB CONNECTED ===");
 
                 ps.setInt(1, attendance.getStudentId());
                 ps.setString(2, attendance.getStudentName());
