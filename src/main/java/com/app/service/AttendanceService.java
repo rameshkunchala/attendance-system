@@ -8,6 +8,10 @@ public class AttendanceService {
     private AttendanceDAO dao = new AttendanceDAO();
 
     public void markAttendance(Attendance attendance) {
-        dao.saveAttendance(attendance);
+        dao.saveAttendance(
+                attendance.getStudentId(),
+                attendance.getStudentName(),
+                attendance.getStatus()
+        );
     }
 }
