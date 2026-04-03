@@ -3,11 +3,11 @@ package com.app.controller;
 import com.app.model.Attendance;
 import com.app.service.AttendanceService;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet("/markAttendance")
 public class AttendanceServlet extends HttpServlet {
@@ -15,23 +15,27 @@ public class AttendanceServlet extends HttpServlet {
     private AttendanceService service = new AttendanceService();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        int studentId = Integer.parseInt(req.getParameter("studentId"));
-        String studentName = req.getParameter("studentName");
-        java.sql.Date attendanceDate =
-                java.sql.Date.valueOf(req.getParameter("attendanceDate"));
-        String status = req.getParameter("status");
+        HttpSession session = request.getSession(false);
+        if (session == null || !"admin".equals(session.getAttribute("role"))) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        int studentId = Integer.parseInt(request.getParameter("studentId"));
+        String studentName = request.getParameter("studentName");
+        String status = request.getParameter("status");
 
         Attendance attendance = new Attendance(
                 studentId,
                 studentName,
-                attendanceDate,
+                new Date(System.currentTimeMillis()),
                 status
         );
 
         service.markAttendance(attendance);
-
-        resp.sendRedirect(req.getContextPath() + "/report.jsp");
+        response.sendRedirect("attendance.jsp");
     }
 }
