@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-        }
         .navbar {
             background: #2c3e50;
             color: white;
