@@ -14,8 +14,10 @@ public class AttendanceServlet extends HttpServlet {
     private AttendanceService service = new AttendanceService();
 
     @Override
+    
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
+        System.out.println("=== AttendanceServlet HIT ===");
+        
         int studentId = Integer.parseInt(req.getParameter("studentId"));
         String studentName = req.getParameter("studentName");
         Date attendanceDate = Date.valueOf(req.getParameter("attendanceDate"));
