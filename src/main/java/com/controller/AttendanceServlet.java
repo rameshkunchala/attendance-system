@@ -15,17 +15,19 @@ public class AttendanceServlet extends HttpServlet {
 
     @Override
     
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("=== AttendanceServlet HIT ===");
-        
-        int studentId = Integer.parseInt(req.getParameter("studentId"));
-        String studentName = req.getParameter("studentName");
-        Date attendanceDate = Date.valueOf(req.getParameter("attendanceDate"));
-        String status = req.getParameter("status");
+    @Override
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    System.out.println("=== AttendanceServlet HIT ===");
 
-        Attendance attendance = new Attendance(studentId, studentName, attendanceDate, status);
-        service.markAttendance(attendance);
+    Attendance attendance = new Attendance(
+            101,
+            "Ramesh",
+            java.sql.Date.valueOf("2026-04-03"),
+            "Present"
+    );
 
-        resp.sendRedirect(req.getContextPath() + "/report.jsp");
-    }
+    service.markAttendance(attendance);
+
+    resp.sendRedirect(req.getContextPath() + "/report.jsp");
+}
 }
