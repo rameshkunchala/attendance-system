@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
         .navbar {
             background: #2c3e50;
             color: white;
@@ -49,27 +59,4 @@
 </head>
 <body>
     <div class="navbar">Attendance Management Dashboard</div>
-
-    <div class="container">
-        <div class="cards">
-            <div class="card">
-                <h3>Total Students</h3>
-                <p>120</p>
-            </div>
-            <div class="card">
-                <h3>Present Today</h3>
-                <p>98</p>
-            </div>
-            <div class="card">
-                <h3>Absent Today</h3>
-                <p>22</p>
-            </div>
-        </div>
-
-        <div class="actions">
-            <a href="attendance.jsp" class="btn primary">Mark Attendance</a>
-            <a href="report.jsp" class="btn success">View Reports</a>
-        </div>
-    </div>
-</body>
 </html>
