@@ -3,10 +3,7 @@ package com.app.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -19,10 +16,13 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if ("admin".equals(username) && "admin123".equals(password)) {
+
             HttpSession session = request.getSession();
             session.setAttribute("role", "admin");
             session.setAttribute("username", username);
+
             response.sendRedirect("dashboard.jsp");
+
         } else {
             response.sendRedirect("login.jsp?error=Invalid credentials");
         }
