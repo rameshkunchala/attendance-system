@@ -26,51 +26,53 @@ public class AttendanceDAO {
     }
 
     public int getTotalStudents() {
-    int count = 0;
-    String sql = "SELECT COUNT(DISTINCT student_id) FROM attendance";
+        int count = 0;
+        String sql = "SELECT COUNT(DISTINCT student_id) FROM attendance";
 
-    try (Connection con = DBUtil.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        if (rs.next()) {
-            count = rs.getInt(1);
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return count;
     }
-    return count;
-}
-public int getPresentToday() {
-    int count = 0;
-    String sql = "SELECT COUNT(*) FROM attendance WHERE attendance_date = CURDATE() AND status='Present'";
 
-    try (Connection con = DBUtil.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+    public int getPresentToday() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM attendance WHERE attendance_date = CURDATE() AND status='Present'";
 
-        if (rs.next()) {
-            count = rs.getInt(1);
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return count;
     }
-    return count;
-}
-public int getPresentToday() {
-    int count = 0;
-    String sql = "SELECT COUNT(*) FROM attendance WHERE attendance_date = CURDATE() AND status='Present'";
 
-    try (Connection con = DBUtil.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+    public int getAbsentToday() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM attendance WHERE attendance_date = CURDATE() AND status='Absent'";
 
-        if (rs.next()) {
-            count = rs.getInt(1);
+        try (Connection con = DBUtil.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return count;
     }
-    return count;
-}
 }
