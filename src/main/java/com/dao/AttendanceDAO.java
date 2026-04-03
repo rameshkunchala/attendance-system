@@ -9,10 +9,14 @@ import java.sql.PreparedStatement;
 public class AttendanceDAO {
 
     public void saveAttendance(Attendance attendance) {
+        System.out.println("=== DAO METHOD START ===");
+
         String sql = "INSERT INTO attendance(student_id, student_name, attendance_date, status) VALUES (?, ?, ?, ?)";
 
         try (Connection con = DBUtil.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
+
+            System.out.println("=== DB CONNECTED ===");
 
             ps.setInt(1, attendance.getStudentId());
             ps.setString(2, attendance.getStudentName());
@@ -23,6 +27,7 @@ public class AttendanceDAO {
             System.out.println("Inserted rows = " + rows);
 
         } catch (Exception e) {
+            System.out.println("=== DAO INSERT FAILED ===");
             e.printStackTrace();
         }
     }
