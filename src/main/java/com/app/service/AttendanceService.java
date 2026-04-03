@@ -14,4 +14,16 @@ public class AttendanceService {
                 attendance.getStatus()
         );
     }
+
+    public int getTotalStudents() {
+        return dao.getTotalStudents();
+    }
+
+    public int getPresentToday() {
+        return dao.getPresentToday();
+    }
+
+    public int getAbsentToday() {
+        return dao.getAbsentToday();
+    }
 }
