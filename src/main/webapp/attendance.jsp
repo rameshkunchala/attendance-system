@@ -12,7 +12,8 @@ if (!"admin".equals(role)) {
     return;
 }
 %>
-<!-- <%
+
+<%--
 String role = (String) session.getAttribute("role");
 String username = (String) session.getAttribute("username");
 
@@ -25,7 +26,7 @@ if (!"admin".equals(role)) {
     response.sendRedirect("dashboard.jsp");
     return;
 }
-%> -->
+--%>
 
 <!DOCTYPE html>
 <html>
